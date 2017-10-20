@@ -1,0 +1,12 @@
+password reset
+	node mailer/mailchimp
+	http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
+form validation
+	express-validator
+	sequelize
+	https://stackoverflow.com/questions/35668651/how-to-prevent-sql-injection-in-nodejs-and-sequelize/35668730
+flash cards
+	works with react?
+add book route
+get book route
+chat function with socket io
