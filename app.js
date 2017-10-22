@@ -51,6 +51,10 @@ if(process.env.NODE_ENV === "production") {
   }, app).listen(app.get('port'), function() {
     console.log("Node app is running on port", app.get('port'), " and the HTTPS protocol")
   });
+  //work around for unsigned certificates for android apps
+  http.createServer(app).listen(3001, function() {
+    console.log("Node app is also running on port 3001", "via the HTTP protocol")
+  })
 }
 else {
   app.listen(app.get('port'), function() {

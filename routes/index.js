@@ -33,7 +33,7 @@ var isLoggedIn = function(req, res, next) {
 	}
 }
 
-var whitelist = ['http://localhost:3001//user/addbook', "http://localhost:3001", "http://localhost:3001/allBooks", "http://localhost:3001/allbooks", "*", "http://localhost:3001/auth"]
+var whitelist = ["*"]
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
