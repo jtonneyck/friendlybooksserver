@@ -48,7 +48,7 @@ if(process.env.NODE_ENV === "production") {
   https.createServer({
       key: privateKey,
       cert: certificate
-  }, app).listen(app.get('port', function() {
+  }, app).listen(app.get('port'), function() {
     console.log("Node app is running on port", app.get('port'), " and the HTTPS protocol")
   });
 }
