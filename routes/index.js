@@ -1,8 +1,8 @@
 //https://www.terlici.com/2014/08/25/best-practices-express-structure.html
 module.exports = function(router, passport, db) {
-	router.get("/hi", require("./hi"))
 	router.use(require('cors')(corsOptions))
 	router.all("/user/*", isLoggedIn)
+	router.get("/hi", require("./hi"))	
 	require("./public/allbooks")(router, passport, db)
 	require("./user/alluserbooks")(router, passport, db)
 	require("./user/profile")(router, passport, db)

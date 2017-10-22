@@ -1,3 +1,4 @@
+const fs = require("fs")
 const express = require('express')
 const app = express()
 const path = require('path');
@@ -7,20 +8,20 @@ const session = require('express-session');
 const router = express.Router()
 const passport = require('passport')
 const db = require("./models/index");
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "http://localhost:3001");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   res.header("Access-Control-Allow-Credentials", "true")
-//   next();
-// });
+//open ssl keys for https
+//for deployment only, recreate certificates in case of domain name or server change. Check instructions
+var privateKey = fs.readFileSync('./certs/friendlyBooks-key.pem' );
+var certificate = fs.readFileSync('./certs/friendlyBooksKey-csr.pem' );
+
 
 (async function(db) {
 	await db.sequelize.sync({force: true})
 		  .then(()=> {
-			//create mock data
-			db.book.bulkCreate(require("./models/mockBookData.json"), {returning: true})
-		  }).then(()=> {
-        db.sequelize.sync({force: false})
+			   //create mock data
+  			return db.book.bulkCreate(require("./models/mockBookData.json"))
+  		})
+      .catch(err => {
+        console.log(err)
       })
 })(db)
 
@@ -42,8 +43,19 @@ app.use(passport.session());
 require("./routes/index")(router, passport, db)
 app.use("/", router)
 
-app.listen(app.get('port'), function() {
-	console.log('Node app is running on port', app.get('port'));
-});
+if(process.env.NODE_ENV === "production") {
+  https.createServer({
+      key: privateKey,
+      cert: certificate
+  }, app).listen(port, function() {
+    console.log("Node app is running on port", app.get('port'), " and the HTTPS protocol")
+  });
+}
+else {
+  app.listen(app.get('port'), function() {
+    console.log('Node app is running on port', app.get('port'));
+  });
+}
+
 
 module.exports = app //for testing

@@ -35,7 +35,7 @@ module.exports = function(sequelize, DataTypes){
   }
 
   Book.getAllBooks = function() {
-    return Book.findAll({limit: 100})
+    return Book.findAll()
            .then(result => {
              return JSON.stringify(result)
            })
