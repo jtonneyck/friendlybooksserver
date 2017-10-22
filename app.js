@@ -13,7 +13,7 @@ const db = require("./models/index");
 //open ssl keys for https
 //for deployment only, recreate certificates in case of domain name or server change. Check instructions
 var privateKey = fs.readFileSync('./certs/friendlyBooks-key.pem' );
-var certificate = fs.readFileSync('./certs/friendlyBooksKey-csr.pem' );
+var certificate = fs.readFileSync('./certs/friendlyBooks-cert.pem' );
 
 (async function(db) {
 	await db.sequelize.sync({force: true})
