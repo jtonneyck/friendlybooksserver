@@ -1,4 +1,6 @@
 const fs = require("fs")
+const http = require('http')
+const https = require('https')
 const express = require('express')
 const app = express()
 const path = require('path');
@@ -12,7 +14,6 @@ const db = require("./models/index");
 //for deployment only, recreate certificates in case of domain name or server change. Check instructions
 var privateKey = fs.readFileSync('./certs/friendlyBooks-key.pem' );
 var certificate = fs.readFileSync('./certs/friendlyBooksKey-csr.pem' );
-
 
 (async function(db) {
 	await db.sequelize.sync({force: true})
@@ -56,6 +57,5 @@ else {
     console.log('Node app is running on port', app.get('port'));
   });
 }
-
 
 module.exports = app //for testing
