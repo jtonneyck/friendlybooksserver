@@ -1,6 +1,6 @@
 //https://www.terlici.com/2014/08/25/best-practices-express-structure.html
 module.exports = function(router, passport, db) {
-	router.use(require('cors')(corsOptions))
+	router.use(require('cors')())
 	router.all("/user/*", isLoggedIn)
 	router.get("/hi", require("./hi"))	
 	require("./public/allbooks")(router, passport, db)
@@ -33,17 +33,17 @@ var isLoggedIn = function(req, res, next) {
 	}
 }
 
-var whitelist = ["*"]
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-  credentials: true
-}
+// var whitelist = ["*"]
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   },
+//   credentials: true
+// }
 
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "http://localhost:3001");
