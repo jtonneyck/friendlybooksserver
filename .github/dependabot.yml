@@ -12,4 +12,3 @@ updates:
     allow:
       dependency-name: *
       dependency-type: production
-      dependency-type: direct
